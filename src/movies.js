@@ -1,8 +1,19 @@
+import inceptionPoster from "./images/inception.jpg";
+import parasitePoster from "./images/parasite.jpg";
+import bladeRunner2049Poster from "./images/blade_runner2049.jpg";
+import interstellarPoster from "./images/interstellar.jpg";
+import ameliePoster from "./images/amelie.jpg";
+import brotherPoster from "./images/brother.jpg";
+import whiplashPoster from "./images/whiplash.jpg";
+import granTorinoPoster from "./images/gran_torino.jpg";
+import theGreenMilePoster from "./images/the_green_mile.jpg";
+import theLionKingPoster from "./images/the_lion_king.jpg";
+
 const movies = [
   {
     title: "Inception",
     rating: 8.8,
-    poster: "src/images/inception.jpg",
+    poster: inceptionPoster,
     year: 2010,
     director: "Christopher Nolan",
     description:
@@ -13,7 +24,7 @@ const movies = [
   {
     title: "Parasite",
     rating: 8.6,
-    poster: "src/images/parasite.jpg",
+    poster: parasitePoster,
     year: 2019,
     director: "Bong Joon Ho",
     description:
@@ -24,7 +35,7 @@ const movies = [
   {
     title: "Blade Runner 2049",
     rating: 8.0,
-    poster: "src/images/blade_runner2049.jpg",
+    poster: bladeRunner2049Poster,
     year: 2017,
     director: "Denis Villeneuve",
     description:
@@ -35,7 +46,7 @@ const movies = [
   {
     title: "Interstellar",
     rating: 8.6,
-    poster: "src/images/interstellar.jpg",
+    poster: interstellarPoster,
     year: 2014,
     director: "Christopher Nolan",
     description:
@@ -46,7 +57,7 @@ const movies = [
   {
     title: "Amélie",
     rating: 8.3,
-    poster: "src/images/amelie.jpg",
+    poster: ameliePoster,
     year: 2001,
     director: "Jean-Pierre Jeunet",
     description:
@@ -57,7 +68,7 @@ const movies = [
   {
     title: "Brother",
     rating: 7.8,
-    poster: "src/images/brother.jpg",
+    poster: brotherPoster,
     year: 1997,
     director: "Aleksei Balabanov",
     description:
@@ -68,7 +79,7 @@ const movies = [
   {
     title: "Whiplash",
     rating: 8.5,
-    poster: "src/images/whiplash.jpg",
+    poster: whiplashPoster,
     year: 2014,
     director: "Damien Chazelle",
     description:
@@ -79,7 +90,7 @@ const movies = [
   {
     title: "Gran Torino",
     rating: 8.1,
-    poster: "src/images/gran_torino.jpg",
+    poster: granTorinoPoster,
     year: 2008,
     director: "Clint Eastwood",
     description:
@@ -90,7 +101,7 @@ const movies = [
   {
     title: "The Green Mile",
     rating: 8.6,
-    poster: "src/images/the_green_mile.jpg",
+    poster: theGreenMilePoster,
     year: 1999,
     director: "Frank Darabont",
     description:
@@ -101,7 +112,7 @@ const movies = [
   {
     title: "The Lion King",
     rating: 8.5,
-    poster: "src/images/the_lion_king.jpg",
+    poster: theLionKingPoster,
     year: 1994,
     director: "Roger Allers, Rob Minkoff",
     description:
