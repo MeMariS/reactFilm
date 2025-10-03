@@ -4,10 +4,9 @@ import "./App.css";
 import Header from "./Header";
 import { Route, Routes } from "react-router";
 import Favorites from "./Favorites";
-import Home from "./Home";
+import HomePage from "./HomePage";
 import NotFound from "./NotFound";
-import FilmPage from "./FilmPage";
-import CardFilm from "./CardFilm";
+import MoviePage from "./MoviePage";
 
 function App() {
   const [favorites, setFavorites] = useState([]);
@@ -23,20 +22,11 @@ function App() {
     <>
       <Header />
       <Routes>
-        <Route
-          path="/"
-          element={
-            <Home
-              favorites={favorites}
-              setFavorites={setFavorites}
-              toggleFavorite={toggleFavorite}
-            />
-          }
-        />
+        <Route path="/" element={<HomePage />} />
         <Route
           path="/movie/:movieId"
           element={
-            <CardFilm favorites={favorites} toggleFavorite={toggleFavorite} />
+            <MoviePage favorites={favorites} toggleFavorite={toggleFavorite} />
           }
         />
         <Route
@@ -49,7 +39,7 @@ function App() {
             />
           }
         />
-        <Route path="/not-found" element={<NotFound />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </>
   );

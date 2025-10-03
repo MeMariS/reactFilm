@@ -1,4 +1,4 @@
-import CardFilm from "./CardFilm.jsx";
+import CardFilm from "./MoviePage.jsx";
 import MovieCard from "./MovieCard.jsx";
 
 function Favorites({ favorites, toggleFavorite }) {
