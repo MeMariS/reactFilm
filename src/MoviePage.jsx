@@ -1,5 +1,6 @@
 import { useParams } from "react-router";
 import movies from "./movies.js";
+import Button from "./Button";
 
 function MoviePage({ favorites, toggleFavorite }) {
   let params = useParams();
@@ -13,7 +14,7 @@ function MoviePage({ favorites, toggleFavorite }) {
 
   return (
     <div className="max-w-3xl mx-auto pt-6 px-4 md:px-0">
-      <div className="flex flex-col md:flex-row  overflow-hidden">
+      <div className="flex flex-col md:flex-row overflow-hidden">
         <div className="w-full md:w-1/3">
           <img
             src={movie.poster}
@@ -25,14 +26,13 @@ function MoviePage({ favorites, toggleFavorite }) {
         <div className="w-full md:w-2/3 p-4 md:p-6">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
             <h2 className="text-xl sm:text-2xl font-semibold">{movie.title}</h2>
-            <button
+            <Button
+              text={isFavorite ? "Remove" : "Add to favorites"}
               onClick={() => toggleFavorite(movie)}
-              className={`px-4 py-2 rounded-lg text-white font-medium transition ${
+              className={
                 isFavorite ? "bg-red-500" : "bg-blue-400 hover:bg-blue-500"
-              }`}
-            >
-              {isFavorite ? "Remove" : "Add to favorites"}
-            </button>
+              }
+            />
           </div>
 
           <p className="mt-2 text-sm text-gray-700">Year: {movie.year}</p>
