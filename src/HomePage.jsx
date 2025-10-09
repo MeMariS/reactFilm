@@ -1,37 +1,69 @@
-import { useState } from 'react';
-import { Input } from '@headlessui/react';
-import MoviesList from './MoviesList';
-import movies from './movies.js';
-import { useEffect } from 'react';
+import { useState } from "react";
+import { Input, Select } from "@headlessui/react";
+import MoviesList from "./MoviesList";
+import movies from "./movies.js";
+import { useEffect } from "react";
+import GenreSelect from "./GenreSelect.jsx";
+import YearSelect from "./YearSelect.jsx";
+import RatingSelect from "./RatingSelect.jsx";
 
 function HomePage() {
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
+  const [genre, setGenre] = useState("All");
+  const [year, setYear] = useState("All");
+  const [rating, setRating] = useState("All");
   const [displayedMovies, setDisplayedMovies] = useState(movies);
 
   useEffect(() => {
-    if (!search) {
-      setDisplayedMovies(movies);
-      return;
-    }
+    const filtered = movies.filter((movie) => {
+      const titleMatches = movie.title
+        .toLowerCase()
+        .includes(search.toLowerCase());
 
-    const filteredMovies = movies.filter((movie) => {
-      const movieTitle = movie.title.toLowerCase();
-      const lowercaseSearch = search.toLowerCase();
-      return movieTitle.includes(lowercaseSearch);
+      const genreMatches =
+        genre === "All" ||
+        movie.genres.some(
+          (g) => g.replace(",", "").trim().toLowerCase() === genre.toLowerCase()
+        );
+      const yearMatches = year === "All" || movie.year === parseInt(year);
+      const ratingMatches = rating === "All" || movie.rating === Number(rating);
+
+      return titleMatches && genreMatches && yearMatches && ratingMatches;
     });
 
-    setDisplayedMovies(filteredMovies);
-  }, [search]);
+    setDisplayedMovies(filtered);
+  }, [search, genre, year, rating]);
+
+  //   useEffect(() => {
+  //     if (!search) {
+  //       setDisplayedMovies(movies);
+  //       return;
+  //     }
+
+  //     const filteredMovies = movies.filter((movie) => {
+  //       const movieTitle = movie.title.toLowerCase();
+  //       const lowercaseSearch = search.toLowerCase();
+  //       // const filteredGenre = genre === "All" || movie.genre === genre;
+  //       return movieTitle.includes(lowercaseSearch);
+  //     });
+
+  //     setDisplayedMovies(filteredMovies);
+  //   }, [search, genre]);
 
   return (
     <>
-      <Input
-        onChange={(e) => setSearch(e.target.value)}
-        placeholder="Search for a movie"
-        name="search"
-        type="text"
-        className="border border-amber-500 data-focus:bg-blue-100 data-hover:shadow"
-      />
+      <div className="px-8 flex items-center gap-4">
+        <Input
+          onChange={(e) => setSearch(e.target.value.trim())}
+          placeholder="Search for a movie"
+          name="search"
+          type="text"
+          className="border border-gray-400 rounded-md px-4 py-2 w-64 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        <YearSelect movies={movies} value={year} onChange={setYear} />
+        <GenreSelect movies={movies} value={genre} onChange={setGenre} />
+        <RatingSelect movies={movies} value={rating} onChange={setRating} />
+      </div>
       <MoviesList movies={displayedMovies} />
     </>
   );
