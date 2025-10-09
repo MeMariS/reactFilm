@@ -3,7 +3,7 @@ import { Select } from "@headlessui/react";
 function YearSelect({ movies, value, onChange }) {
   const allYears = movies.map((m) => m.year);
   const uniqueYears = Array.from(new Set(allYears));
-  const years = ["Years", ...uniqueYears];
+  const years = ["All", ...uniqueYears];
   return (
     <>
       <Select value={value} onChange={(e) => onChange(e.target.value)}>

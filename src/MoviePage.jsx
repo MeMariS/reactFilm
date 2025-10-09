@@ -38,7 +38,7 @@ function MoviePage({ favorites, toggleFavorite }) {
           <p className="mt-2 text-sm text-gray-700">Year: {movie.year}</p>
           <p className="text-sm text-gray-700">Rating: {movie.rating}</p>
           <p className="text-sm text-gray-700">Director: {movie.director}</p>
-          <p className="text-sm text-gray-700">Genres: {movie.genres}</p>
+          <p className="text-sm text-gray-700">Genres: {movie.genres.join(", ")}</p>
           <p className="text-sm text-gray-700">Actors: {movie.actors}</p>
 
           <div className="mt-3">

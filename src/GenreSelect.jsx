@@ -1,36 +1,25 @@
-import { Select } from "@headlessui/react";
-import { useState } from "react";
+import { Select, Label, Field } from '@headlessui/react';
 
-function GenreSelect({ movies, onChange }) {
-  const [selectedGenre, setSelectedGenre] = useState("All");
-  //   const allGenres = movies.flatMap((m) =>
-  //     m.genres.map((g) => g.replace(",", "").trim())
-  //   );
-  //   const unique = Array.from(new Set(allGenres));
-  //   const uniqueGenres = ["All", ...unique];
+// Add all genres from movies.js
+const allGenres = ['All', 'sci-fi', 'drama', 'thriller', 'action'];
 
-  const allGenres = movies.flatMap((m) =>
-    m.genres.map((g) => g.replace(",", "").trim())
-  );
-
-  const uniqueGenres = ["Genre", ...new Set(allGenres)];
-
+function GenreSelect({ value, onChange }) {
   return (
-    <>
+    <Field className={'flex flex-col'}>
+      <Label>Genres</Label>
       <Select
-        value={selectedGenre}
+        value={value}
         onChange={(e) => {
-          setSelectedGenre(e.target.value);
           onChange(e.target.value);
         }}
       >
-        {uniqueGenres.map((genre) => (
+        {allGenres.map((genre) => (
           <option key={genre} value={genre}>
             {genre}
           </option>
         ))}
       </Select>
-    </>
+    </Field>
   );
 }
 export default GenreSelect;
