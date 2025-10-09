@@ -18,7 +18,7 @@ const movies = [
     director: "Christopher Nolan",
     description:
       "A thief who infiltrates dreams gets a shot at redemption if he can plant an idea in a target's mind.",
-    genres: ["sci-fi, ", "thriller, ", "action"],
+    genres: ["sci-fi", "thriller", "action"],
     id: 1,
   },
   {
@@ -29,7 +29,7 @@ const movies = [
     director: "Bong Joon Ho",
     description:
       "A lower-class family schemes its way into a wealthy household, with consequences spiraling out of control.",
-    genres: ["drama, ", "thriller, ", "comedy"],
+    genres: ["drama", "thriller", "comedy"],
     id: 2,
   },
   {
@@ -40,7 +40,7 @@ const movies = [
     director: "Denis Villeneuve",
     description:
       "A new blade runner uncovers a secret that could upend the balance between humans and replicants.",
-    genres: ["sci-fi, ", "drama, ", "mystery"],
+    genres: ["sci-fi", "drama", "mystery"],
     id: 3,
   },
   {
@@ -51,7 +51,7 @@ const movies = [
     director: "Christopher Nolan",
     description:
       "Explorers travel through a wormhole in search of a new home for humanity.",
-    genres: ["sci-fi, ", "drama, ", "adventure"],
+    genres: ["sci-fi", "drama", "adventure"],
     id: 4,
   },
   {
@@ -62,7 +62,7 @@ const movies = [
     director: "Jean-Pierre Jeunet",
     description:
       "A shy Parisian decides to quietly improve the lives of those around her and finds love along the way.",
-    genres: ["romance, ", "comedy, ", "drama"],
+    genres: ["romance", "comedy", "drama"],
     id: 5,
   },
   {
@@ -73,7 +73,7 @@ const movies = [
     director: "Aleksei Balabanov",
     description:
       "A young army veteran navigates the criminal underworld of 1990s Saint Petersburg in search of his own code of honor.",
-    genres: ["crime, ", "drama, ", "action"],
+    genres: ["crime", "drama", "action"],
     id: 6,
   },
   {
@@ -84,7 +84,7 @@ const movies = [
     director: "Damien Chazelle",
     description:
       "An ambitious drummer clashes with a ruthless mentor in a pursuit of perfection.",
-    genres: ["drama, ", "music"],
+    genres: ["drama", "music"],
     id: 7,
   },
   {
@@ -106,7 +106,7 @@ const movies = [
     director: "Frank Darabont",
     description:
       "A death row guard witnesses inexplicable events that test his beliefs and compassion.",
-    genres: ["drama, ", "fantasy, ", "crime"],
+    genres: ["drama", "fantasy", "crime"],
     id: 9,
   },
   {
@@ -117,7 +117,7 @@ const movies = [
     director: "Roger Allers, Rob Minkoff",
     description:
       "Young Simba must face exile and return to claim his place as king of the Pride Lands.",
-    genres: ["animation, ", "adventure, ", "drama"],
+    genres: ["animation", "adventure", "drama"],
     id: 10,
   },
 ];

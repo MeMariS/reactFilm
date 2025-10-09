@@ -21,10 +21,7 @@ function HomePage() {
         .includes(search.toLowerCase());
 
       const genreMatches =
-        genre === "All" ||
-        movie.genres.some(
-          (g) => g.replace(",", "").trim().toLowerCase() === genre.toLowerCase()
-        );
+        genre === "All" || movie.genres.some((g) => g === genre.toLowerCase());
       const yearMatches = year === "All" || movie.year === parseInt(year);
       const ratingMatches = rating === "All" || movie.rating === Number(rating);
 
@@ -44,10 +41,11 @@ function HomePage() {
   //       const movieTitle = movie.title.toLowerCase();
   //       const lowercaseSearch = search.toLowerCase();
   //       // const filteredGenre = genre === "All" || movie.genre === genre;
-  //       return movieTitle.includes(lowercaseSearch);
+  //       return movieTitle.includes(lowercaseSearch) && filteredGenre;
   //     });
 
   //     setDisplayedMovies(filteredMovies);
+  // setDisplayedMovies(filteredGenre)
   //   }, [search, genre]);
 
   return (
