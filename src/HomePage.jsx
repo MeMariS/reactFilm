@@ -1,19 +1,20 @@
-import { useState } from "react";
-import { Input, Select } from "@headlessui/react";
-import MoviesList from "./MoviesList";
-import movies from "./movies.js";
-import { useEffect } from "react";
-import GenreSelect from "./GenreSelect.jsx";
-import YearSelect from "./YearSelect.jsx";
-import RatingSelect from "./RatingSelect.jsx";
-import ButtonClear from "./ButtonClear.jsx";
-import ComponentCLear from "./ComponentCLear.jsx";
+import { useState } from 'react';
+import { Input, Select } from '@headlessui/react';
+import MoviesList from './MoviesList';
+import movies from './movies.js';
+import { useEffect } from 'react';
+import GenreSelect from './GenreSelect.jsx';
+import YearSelect from './YearSelect.jsx';
+import RatingSelect from './RatingSelect.jsx';
+import Button from './Button';
+import ButtonClear from './ButtonClear.jsx';
+import ComponentCLear from './ComponentCLear.jsx';
 
 function HomePage() {
-  const [search, setSearch] = useState("");
-  const [genre, setGenre] = useState("All");
-  const [year, setYear] = useState("All");
-  const [rating, setRating] = useState("All");
+  const [search, setSearch] = useState('');
+  const [genre, setGenre] = useState('All');
+  const [year, setYear] = useState('All');
+  const [rating, setRating] = useState('All');
   const [displayedMovies, setDisplayedMovies] = useState(movies);
 
   useEffect(() => {
@@ -23,9 +24,9 @@ function HomePage() {
         .includes(search.toLowerCase());
 
       const genreMatches =
-        genre === "All" || movie.genres.some((g) => g === genre.toLowerCase());
-      const yearMatches = year === "All" || movie.year === parseInt(year);
-      const ratingMatches = rating === "All" || movie.rating === Number(rating);
+        genre === 'All' || movie.genres.some((g) => g === genre.toLowerCase());
+      const yearMatches = year === 'All' || movie.year === parseInt(year);
+      const ratingMatches = rating === 'All' || movie.rating === Number(rating);
 
       return titleMatches && genreMatches && yearMatches && ratingMatches;
     });
@@ -33,12 +34,14 @@ function HomePage() {
     setDisplayedMovies(filtered);
   }, [search, genre, year, rating]);
 
-  const hasActiveFilters = genre || year || rating;
+  const hasActiveFilters =
+    genre !== 'All' || year !== 'All' || rating !== 'All' || search;
   const resetAllFilters = () => {
-    setGenre("");
-    setYear("");
-    setRating("");
-    console.log("reset filters");
+    setGenre('All');
+    setYear('All');
+    setRating('All');
+    setSearch('');
+    console.log('reset filters');
   };
 
   //   useEffect(() => {
@@ -63,6 +66,7 @@ function HomePage() {
       <div className="px-8 flex items-center gap-4">
         <Input
           onChange={(e) => setSearch(e.target.value.trim())}
+          value={search}
           placeholder="Search for a movie"
           name="search"
           type="text"
@@ -71,7 +75,9 @@ function HomePage() {
         <YearSelect value={year} onChange={setYear} />
         <GenreSelect value={genre} onChange={setGenre} />
         <RatingSelect value={rating} onChange={setRating} />
-        {hasActiveFilters && <ButtonClear onReset={resetAllFilters} />}
+        {hasActiveFilters && (
+          <Button text="Clear All" onClick={resetAllFilters} />
+        )}
       </div>
       <MoviesList movies={displayedMovies} />
     </>
