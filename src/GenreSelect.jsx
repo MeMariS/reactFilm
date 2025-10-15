@@ -1,11 +1,25 @@
-import { Select, Label, Field } from '@headlessui/react';
+import { Select, Label, Field } from "@headlessui/react";
 
 // Add all genres from movies.js
-const allGenres = ['All', 'sci-fi', 'drama', 'thriller', 'action'];
+const allGenres = [
+  "All",
+  "sci-fi",
+  "drama",
+  "thriller",
+  "action",
+  "comedy",
+  "mystery",
+  "adventure",
+  "romance",
+  "crime",
+  "music",
+  "fantasy",
+  "animation",
+];
 
 function GenreSelect({ value, onChange }) {
   return (
-    <Field className={'flex flex-col'}>
+    <Field className={"flex flex-col"}>
       <Label>Genres</Label>
       <Select
         value={value}

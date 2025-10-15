@@ -6,6 +6,8 @@ import { useEffect } from "react";
 import GenreSelect from "./GenreSelect.jsx";
 import YearSelect from "./YearSelect.jsx";
 import RatingSelect from "./RatingSelect.jsx";
+import ButtonClear from "./ButtonClear.jsx";
+import ComponentCLear from "./ComponentCLear.jsx";
 
 function HomePage() {
   const [search, setSearch] = useState("");
@@ -30,6 +32,14 @@ function HomePage() {
 
     setDisplayedMovies(filtered);
   }, [search, genre, year, rating]);
+
+  const hasActiveFilters = genre || year || rating;
+  const resetAllFilters = () => {
+    setGenre("");
+    setYear("");
+    setRating("");
+    console.log("reset filters");
+  };
 
   //   useEffect(() => {
   //     if (!search) {
@@ -58,9 +68,10 @@ function HomePage() {
           type="text"
           className="border border-gray-400 rounded-md px-4 py-2 w-64 focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
-        <YearSelect movies={movies} value={year} onChange={setYear} />
+        <YearSelect value={year} onChange={setYear} />
         <GenreSelect value={genre} onChange={setGenre} />
-        <RatingSelect movies={movies} value={rating} onChange={setRating} />
+        <RatingSelect value={rating} onChange={setRating} />
+        {hasActiveFilters && <ButtonClear onReset={resetAllFilters} />}
       </div>
       <MoviesList movies={displayedMovies} />
     </>

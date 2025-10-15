@@ -1,18 +1,31 @@
-import { Select } from "@headlessui/react";
+import { Field, Label, Select } from "@headlessui/react";
 
-function YearSelect({ movies, value, onChange }) {
-  const allYears = movies.map((m) => m.year);
-  const uniqueYears = Array.from(new Set(allYears));
-  const years = ["All", ...uniqueYears];
+const allYears = [
+  "All",
+  "1994",
+  "1997",
+  "1999",
+  "2001",
+  "2008",
+  "2010",
+  "2014",
+  "2017",
+  "2019",
+];
+
+function YearSelect({ value, onChange }) {
   return (
     <>
-      <Select value={value} onChange={(e) => onChange(e.target.value)}>
-        {years.map((year) => (
-          <option key={year} value={year}>
-            {year}
-          </option>
-        ))}
-      </Select>
+      <Field className={"flex flex-col"}>
+        <Label>Years</Label>
+        <Select value={value} onChange={(e) => onChange(e.target.value)}>
+          {allYears.map((year) => (
+            <option key={year} value={year}>
+              {year}
+            </option>
+          ))}
+        </Select>
+      </Field>
     </>
   );
 }
