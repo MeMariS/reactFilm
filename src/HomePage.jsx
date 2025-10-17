@@ -1,21 +1,31 @@
-import { useState } from 'react';
-import { Input, Select } from '@headlessui/react';
-import MoviesList from './MoviesList';
-import movies from './movies.js';
-import { useEffect } from 'react';
-import GenreSelect from './GenreSelect.jsx';
-import YearSelect from './YearSelect.jsx';
-import RatingSelect from './RatingSelect.jsx';
-import Button from './Button';
-import ButtonClear from './ButtonClear.jsx';
-import ComponentCLear from './ComponentCLear.jsx';
+import { useState } from "react";
+import { Input, Select } from "@headlessui/react";
+import MoviesList from "./MoviesList";
+import movies from "./movies.js";
+import { useEffect } from "react";
+import GenreSelect from "./GenreSelect.jsx";
+import YearSelect from "./YearSelect.jsx";
+import RatingSelect from "./RatingSelect.jsx";
+import Button from "./Button";
+import { useSearchParams } from "react-router";
 
 function HomePage() {
-  const [search, setSearch] = useState('');
-  const [genre, setGenre] = useState('All');
-  const [year, setYear] = useState('All');
-  const [rating, setRating] = useState('All');
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const [search, setSearch] = useState(searchParams.get("search") || "");
+  const [genre, setGenre] = useState(searchParams.get("genre") || "All");
+  const [year, setYear] = useState(searchParams.get("year") || "All");
+  const [rating, setRating] = useState(searchParams.get("rating") || "All");
   const [displayedMovies, setDisplayedMovies] = useState(movies);
+
+  useEffect(() => {
+    const params = new URLSearchParams(searchParams);
+    params.set("search", search);
+    params.set("genre", genre);
+    params.set("year", year);
+    params.set("rating", rating);
+    setSearchParams(params);
+  }, [search, genre, year, rating]);
 
   useEffect(() => {
     const filtered = movies.filter((movie) => {
@@ -24,9 +34,9 @@ function HomePage() {
         .includes(search.toLowerCase());
 
       const genreMatches =
-        genre === 'All' || movie.genres.some((g) => g === genre.toLowerCase());
-      const yearMatches = year === 'All' || movie.year === parseInt(year);
-      const ratingMatches = rating === 'All' || movie.rating === Number(rating);
+        genre === "All" || movie.genres.some((g) => g === genre.toLowerCase());
+      const yearMatches = year === "All" || movie.year === parseInt(year);
+      const ratingMatches = rating === "All" || movie.rating === Number(rating);
 
       return titleMatches && genreMatches && yearMatches && ratingMatches;
     });
@@ -35,31 +45,14 @@ function HomePage() {
   }, [search, genre, year, rating]);
 
   const hasActiveFilters =
-    genre !== 'All' || year !== 'All' || rating !== 'All' || search;
+    genre !== "All" || year !== "All" || rating !== "All" || search;
   const resetAllFilters = () => {
-    setGenre('All');
-    setYear('All');
-    setRating('All');
-    setSearch('');
-    console.log('reset filters');
+    setGenre("All");
+    setYear("All");
+    setRating("All");
+    setSearch("");
+    console.log("reset filters");
   };
-
-  //   useEffect(() => {
-  //     if (!search) {
-  //       setDisplayedMovies(movies);
-  //       return;
-  //     }
-
-  //     const filteredMovies = movies.filter((movie) => {
-  //       const movieTitle = movie.title.toLowerCase();
-  //       const lowercaseSearch = search.toLowerCase();
-  //       // const filteredGenre = genre === "All" || movie.genre === genre;
-  //       return movieTitle.includes(lowercaseSearch) && filteredGenre;
-  //     });
-
-  //     setDisplayedMovies(filteredMovies);
-  // setDisplayedMovies(filteredGenre)
-  //   }, [search, genre]);
 
   return (
     <>

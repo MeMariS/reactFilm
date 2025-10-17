@@ -1,4 +1,4 @@
-import CardFilm from "./MoviePage.jsx";
+import EmptyState from "./EmptyState.jsx";
 import MovieCard from "./MovieCard.jsx";
 
 function Favorites({ favorites, toggleFavorite }) {
@@ -8,9 +8,11 @@ function Favorites({ favorites, toggleFavorite }) {
         <h1 className="text-2xl font-bold mb-4">Favorites movies</h1>
 
         {favorites.length === 0 ? (
-          <p className="text-gray-500">
-            You don't have any favorite movies yet 🙃
-          </p>
+          <EmptyState
+            className="text-gray-500"
+            message="
+            You don't have any favorite movies yet 🙃"
+          />
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
             {favorites.map((movie) => (
