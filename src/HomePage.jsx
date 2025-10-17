@@ -54,6 +54,10 @@ function HomePage() {
     console.log("reset filters");
   };
 
+  const copyLink = async () => {
+    await navigator.clipboard.writeText(location.href);
+  };
+
   return (
     <>
       <div className="px-8 flex items-center gap-4">
@@ -71,6 +75,7 @@ function HomePage() {
         {hasActiveFilters && (
           <Button text="Clear All" onClick={resetAllFilters} />
         )}
+        <Button text="Copy Link" onClick={copyLink} />
       </div>
       <MoviesList movies={displayedMovies} />
     </>
