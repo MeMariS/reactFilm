@@ -9,7 +9,6 @@ function Favorites({ favorites, toggleFavorite }) {
 
         {favorites.length === 0 ? (
           <EmptyState
-            className="text-gray-500"
             message="
             You don't have any favorite movies yet 🙃"
           />

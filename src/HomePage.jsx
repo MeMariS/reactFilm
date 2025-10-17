@@ -25,7 +25,7 @@ function HomePage() {
     params.set("year", year);
     params.set("rating", rating);
     setSearchParams(params);
-  }, [search, genre, year, rating]);
+  }, [search, genre, year, rating, searchParams, setSearchParams]);
 
   useEffect(() => {
     const filtered = movies.filter((movie) => {
