@@ -39,6 +39,7 @@ function HomePage() {
 
         const data = await response.json();
         console.log(data)
+        // Here we'll need to set the list of movies (data.results) to displayedMovies
         // setMovies(data.results);
       } catch (err) {
         console.log(err)
