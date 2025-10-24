@@ -21,7 +21,7 @@ function YearSelect({ value, onChange }) {
         <Select
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          className="hover:cursor-pointer"
+          className="hover:cursor-pointer border border-amber-400 rounded-md"
         >
           {allYears.map((year) => (
             <option key={year} value={year}>
