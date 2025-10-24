@@ -1,9 +1,10 @@
-function Button({ text, onClick, className = '', icon, variant = 'default' }) {
+function Button({ text, onClick, className = '', icon, variant = 'primary' }) {
   const base = 'px-4 py-2 rounded hover:cursor-pointer flex items-center';
 
   const styles = {
-    default: 'bg-pink-50 hover:bg-pink-200',
-    footer: '',
+    primary: 'bg-pink-50 hover:bg-pink-200',
+    secondary: 'border border-pink-300 hover:bg-pink-200',
+    simple: '',
   };
   return (
     <button

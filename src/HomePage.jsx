@@ -10,7 +10,6 @@ import Button from './Button';
 import { useSearchParams } from 'react-router';
 import { Copy } from 'lucide-react';
 import { ToastContainer, toast } from 'react-toastify';
-import Footer from './Footer.jsx';
 
 function HomePage() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -93,11 +92,12 @@ function HomePage() {
         <GenreSelect value={genre} onChange={setGenre} />
         <RatingSelect value={rating} onChange={setRating} />
         {hasActiveFilters && (
-          <Button text="Clear All" onClick={resetAllFilters} />
+          <Button text="Clear All" onClick={resetAllFilters} variant='secondary' />
         )}
         <Button
           icon={<Copy size={20} />}
           text="Copy Link"
+          variant='secondary'
           onClick={() => {
             copyLink();
             notify();

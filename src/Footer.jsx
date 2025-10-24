@@ -10,7 +10,7 @@ function Footer() {
           <h1 className="font-medium text-xl px-30 py-5">ReactFLix</h1>
         </Link>
         <Link to="/">
-          <Button text="Home" variant="footer" className="px-30" />
+          <Button text="Home" variant="simple" className="px-30" />
         </Link>
         <Link to="/favorites">
           <Button text="Favorites" variant="footer" className="px-30" />
