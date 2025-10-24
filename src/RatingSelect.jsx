@@ -5,9 +5,13 @@ const allRatings = ["All", "7.8", "8", "8.1", "8.3", "8.5", "8.6", "8.8"];
 function RatingSelect({ value, onChange }) {
   return (
     <>
-      <Field className={"flex flex-col"}>
+      <Field className={"flex "}>
         <Label>Ratings</Label>
-        <Select value={value} onChange={(e) => onChange(e.target.value)}>
+        <Select
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          className="hover:cursor-pointer"
+        >
           {allRatings.map((rating) => (
             <option key={rating} value={rating}>
               {rating === "All" ? "All" : rating}

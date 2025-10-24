@@ -8,6 +8,9 @@ import YearSelect from "./YearSelect.jsx";
 import RatingSelect from "./RatingSelect.jsx";
 import Button from "./Button";
 import { useSearchParams } from "react-router";
+import { Copy } from "lucide-react";
+import { ToastContainer, toast } from "react-toastify";
+import Footer from "./Footer.jsx";
 
 function HomePage() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -58,9 +61,26 @@ function HomePage() {
     await navigator.clipboard.writeText(location.href);
   };
 
+  const notify = () => toast("copy!");
+
+  useEffect(() => {
+    const savedFilters = JSON.parse(localStorage.getItem("filters"));
+    if (savedFilters) {
+      setSearch(savedFilters.search || "");
+      setGenre(savedFilters.genre || "All");
+      setYear(savedFilters.year || "All");
+      setRating(savedFilters.rating || "All");
+    }
+  }, []);
+
+  useEffect(() => {
+    const filters = { search, genre, year, rating };
+    localStorage.setItem("filters", JSON.stringify(filters));
+  }, [search, genre, year, rating]);
+
   return (
     <>
-      <div className="px-8 flex items-center gap-4">
+      <div className="px-10 flex justify-center items-center gap-4">
         <Input
           onChange={(e) => setSearch(e.target.value.trim())}
           value={search}
@@ -75,8 +95,22 @@ function HomePage() {
         {hasActiveFilters && (
           <Button text="Clear All" onClick={resetAllFilters} />
         )}
-        <Button text="Copy Link" onClick={copyLink} />
+        <Button
+          icon={<Copy size={20} />}
+          text="Copy Link"
+          onClick={() => {
+            copyLink();
+            notify();
+          }}
+          className="flex"
+        />
+        <ToastContainer />
       </div>
+      {hasActiveFilters && (
+        <p className="px-8 text-gray-400 text-sm mt-2">
+          Found {displayedMovies.length} movies
+        </p>
+      )}
       <MoviesList movies={displayedMovies} />
     </>
   );

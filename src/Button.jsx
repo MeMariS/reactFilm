@@ -1,10 +1,16 @@
-function Button({ text, onClick, className }) {
+function Button({ text, onClick, className = "", icon, variant = "default" }) {
+  const base = "px-4 py-2 rounded hover:cursor-pointer";
+
+  const styles = {
+    default: "bg-pink-50 hover:bg-pink-200",
+    footer: "",
+  };
   return (
     <button
       onClick={onClick}
-      className={`px-4 py-2 bg-pink-50 rounded hover:cursor-pointer hover:bg-pink-200 transition ${className}`}
+      className={`${base} ${styles[variant]} ${className}`}
     >
-      {text}
+      {text} {icon}
     </button>
   );
 }

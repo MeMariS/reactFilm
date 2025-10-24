@@ -7,6 +7,7 @@ import Favorites from "./Favorites";
 import HomePage from "./HomePage";
 import NotFound from "./NotFound";
 import MoviePage from "./MoviePage";
+import Footer from "./Footer";
 
 function App() {
   const [favorites, setFavorites] = useState([]);
@@ -41,6 +42,7 @@ function App() {
         />
         <Route path="*" element={<NotFound />} />
       </Routes>
+      <Footer />
     </>
   );
 }
