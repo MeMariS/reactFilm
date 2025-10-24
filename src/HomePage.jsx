@@ -21,6 +21,35 @@ function HomePage() {
   const [displayedMovies, setDisplayedMovies] = useState(movies);
 
   useEffect(() => {
+    const fetchMovies = async () => {
+      try {
+        const response = await fetch(
+          'https://api.themoviedb.org/3/movie/popular?language=en-US&page=1',
+          {
+            headers: {
+              accept: 'application/json',
+              Authorization: `Bearer ${import.meta.env.VITE_TMDB_TOKEN}`,
+            },
+          },
+        );
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        console.log(data)
+        // setMovies(data.results);
+      } catch (err) {
+        console.log(err)
+        // setError(err.message);
+      }
+    };
+
+    fetchMovies();
+  }, []);
+
+  useEffect(() => {
     const params = new URLSearchParams(searchParams);
     params.set('search', search);
     params.set('genre', genre);
@@ -78,7 +107,7 @@ function HomePage() {
   }, [search, genre, year, rating]);
 
   return (
-    <div className='max-w-[1200px] mx-auto'>
+    <div className="max-w-[1200px] mx-auto">
       <div className="px-10 flex justify-center items-center gap-4">
         <Input
           onChange={(e) => setSearch(e.target.value.trim())}
@@ -92,12 +121,16 @@ function HomePage() {
         <GenreSelect value={genre} onChange={setGenre} />
         <RatingSelect value={rating} onChange={setRating} />
         {hasActiveFilters && (
-          <Button text="Clear All" onClick={resetAllFilters} variant='secondary' />
+          <Button
+            text="Clear All"
+            onClick={resetAllFilters}
+            variant="secondary"
+          />
         )}
         <Button
           icon={<Copy size={20} />}
           text="Copy Link"
-          variant='secondary'
+          variant="secondary"
           onClick={() => {
             copyLink();
             notify();
