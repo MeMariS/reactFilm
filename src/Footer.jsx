@@ -5,7 +5,7 @@ import logo from "./images/Blue_Long_Logo.svg";
 function Footer() {
   return (
     <>
-      <footer className="w-full flex flex-col px-10 py-6 bg-amber-200 rounded-lg border-2">
+      <footer className="w-full flex flex-col px-10 py-6 bg-amber-200 rounded-lg border-2 mt-auto">
         <Link to="/">
           <h1 className="font-medium text-xl px-30 py-5">ReactFLix</h1>
         </Link>

@@ -20,7 +20,7 @@ function App() {
     });
   };
   return (
-    <>
+    <div className="flex flex-col min-h-screen">
       <Header />
       <Routes>
         <Route path="/" element={<HomePage />} />
@@ -43,7 +43,7 @@ function App() {
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />
-    </>
+    </div>
   );
 }
 
