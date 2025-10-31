@@ -19,7 +19,6 @@ function HomePage() {
   const [year, setYear] = useState(searchParams.get("year") || "All");
   const [rating, setRating] = useState(searchParams.get("rating") || "All");
   const [displayedMovies, setDisplayedMovies] = useState(movies);
-  const [favorites, setFavorites] = useState([]);
 
   useEffect(() => {
     const fetchMovies = async () => {
@@ -86,17 +85,6 @@ function HomePage() {
     setSearch("");
     console.log("reset filters");
   };
-
-  useEffect(() => {
-    const savedFavorites = JSON.parse(localStorage.getItem("favorites"));
-    if (savedFavorites) {
-      setFavorites(savedFavorites);
-    }
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem("favorites", JSON.stringify(favorites));
-  }, [favorites]);
 
   const copyLink = async () => {
     await navigator.clipboard.writeText(location.href);
