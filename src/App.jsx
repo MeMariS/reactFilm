@@ -4,6 +4,7 @@ import Header from './Header';
 import { Route, Routes } from 'react-router';
 import Favorites from './Favorites';
 import HomePage from './HomePage';
+import HomePageTest from './HomePageTest';
 import NotFound from './NotFound';
 import MoviePage from './MoviePage';
 import Footer from './Footer';
@@ -14,6 +15,7 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/home-test" element={<HomePageTest />} />
         <Route path="/movie/:movieId" element={<MoviePage />} />
         <Route path="/favorites" element={<Favorites />} />
         <Route path="*" element={<NotFound />} />
