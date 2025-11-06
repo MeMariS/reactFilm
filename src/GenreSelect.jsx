@@ -19,7 +19,7 @@ const allGenres = [
 
 function GenreSelect({ value, onChange }) {
   return (
-    <Field className={"flex "}>
+    <Field className="flex items-center gap-2 hover:cursor-pointer border border-gray-200 rounded-md px-2">
       <Label>Genres</Label>
       <Select
         value={value}
