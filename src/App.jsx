@@ -21,28 +21,35 @@ function App() {
   };
   return (
     <>
-      <Header />
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route
-          path="/movie/:movieId"
-          element={
-            <MoviePage favorites={favorites} toggleFavorite={toggleFavorite} />
-          }
-        />
-        <Route
-          path="/favorites"
-          element={
-            <Favorites
-              favorites={favorites}
-              setFavorites={setFavorites}
-              toggleFavorite={toggleFavorite}
+      <div className="flex flex-col min-h-screen">
+        <Header />
+        <main className="flex-grow">
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route
+              path="/movie/:movieId"
+              element={
+                <MoviePage
+                  favorites={favorites}
+                  toggleFavorite={toggleFavorite}
+                />
+              }
             />
-          }
-        />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-      <Footer />
+            <Route
+              path="/favorites"
+              element={
+                <Favorites
+                  favorites={favorites}
+                  setFavorites={setFavorites}
+                  toggleFavorite={toggleFavorite}
+                />
+              }
+            />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </main>
+        <Footer />
+      </div>
     </>
   );
 }
