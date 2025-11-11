@@ -1,13 +1,13 @@
-import './Header';
-import './App.css';
-import Header from './Header';
-import { Route, Routes } from 'react-router';
-import Favorites from './Favorites';
-import HomePage from './HomePage';
-import HomePageTest from './HomePageTest';
-import NotFound from './NotFound';
-import MoviePage from './MoviePage';
-import Footer from './Footer';
+import "./Header";
+import "./App.css";
+import Header from "./Header";
+import { Route, Routes } from "react-router-dom";
+import Favorites from "./Favorites";
+import HomePage from "./HomePage";
+import HomePageTest from "./HomePageTest";
+import NotFound from "./NotFound";
+import MoviePage from "./MoviePage";
+import Footer from "./Footer";
 
 function App() {
   return (

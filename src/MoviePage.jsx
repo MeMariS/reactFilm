@@ -1,6 +1,6 @@
-import { useParams } from 'react-router';
-import movies from './movies.js';
-import Button from './Button';
+import { useParams } from "react-router-dom";
+import movies from "./movies.js";
+import Button from "./Button";
 
 function MoviePage() {
   let params = useParams();
@@ -36,10 +36,10 @@ function MoviePage() {
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
             <h2 className="text-xl sm:text-2xl font-semibold">{movie.title}</h2>
             <Button
-              text={isFavorite ? 'Remove' : 'Add to favorites'}
+              text={isFavorite ? "Remove" : "Add to favorites"}
               onClick={() => toggleFavorite(movie)}
               className={
-                isFavorite ? 'bg-red-500' : 'bg-blue-400 hover:bg-blue-500'
+                isFavorite ? "bg-red-500" : "bg-blue-400 hover:bg-blue-500"
               }
             />
           </div>
@@ -48,7 +48,7 @@ function MoviePage() {
           <p className="text-sm text-gray-700">Rating: {movie.rating}</p>
           <p className="text-sm text-gray-700">Director: {movie.director}</p>
           <p className="text-sm text-gray-700">
-            Genres: {movie.genres.join(', ')}
+            Genres: {movie.genres.join(", ")}
           </p>
           <p className="text-sm text-gray-700">Actors: {movie.actors}</p>
 
