@@ -1,8 +1,8 @@
-import { useParams } from "react-router";
+import { useParams } from "react-router-dom";
 import movies from "./movies.js";
 import Button from "./Button";
 
-function MoviePage({ favorites, toggleFavorite }) {
+function MoviePage() {
   let params = useParams();
   const movie = movies.find((m) => m.id === Number(params.movieId));
 
@@ -10,7 +10,16 @@ function MoviePage({ favorites, toggleFavorite }) {
     return <p className="p-6 text-red-600">Фильм не найден</p>;
   }
 
-  const isFavorite = favorites.some((m) => m.id === movie.id);
+  // Когда страница загружается первый раз:
+  // Получить доступ к LS – getItem
+  // Проверить, есть ли в favorites в LS текущий фильм
+  // Если есть, выставляем isFavorite = true
+
+  const isFavorite = false;
+
+  // Сохранить ИЛИ удалить фильм в LS (в зависимости от того, есть он уже в favorites или нет)
+  // – setItem
+  const toggleFavorite = (movie) => {};
 
   return (
     <div className="max-w-3xl mx-auto pt-6 px-4 md:px-0">
@@ -38,7 +47,9 @@ function MoviePage({ favorites, toggleFavorite }) {
           <p className="mt-2 text-sm text-gray-700">Year: {movie.year}</p>
           <p className="text-sm text-gray-700">Rating: {movie.rating}</p>
           <p className="text-sm text-gray-700">Director: {movie.director}</p>
-          <p className="text-sm text-gray-700">Genres: {movie.genres.join(", ")}</p>
+          <p className="text-sm text-gray-700">
+            Genres: {movie.genres.join(", ")}
+          </p>
           <p className="text-sm text-gray-700">Actors: {movie.actors}</p>
 
           <div className="mt-3">

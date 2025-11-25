@@ -1,7 +1,14 @@
-import EmptyState from "./EmptyState.jsx";
-import MovieCard from "./MovieCard.jsx";
+import { useState } from 'react';
+import EmptyState from './EmptyState.jsx';
+import MovieCard from './MovieCard.jsx';
 
-function Favorites({ favorites, toggleFavorite }) {
+function Favorites() {
+  const [favorites, setFavorites] = useState([]);
+
+  // Когда страница загружается первый раз:
+  // Получаем доступ к favorites в LS
+  // Сохраняем их в useState favorites
+
   return (
     <>
       <div className="p-6">
@@ -18,8 +25,6 @@ function Favorites({ favorites, toggleFavorite }) {
               <MovieCard
                 key={movie.id}
                 movie={movie}
-                isFavorite={true}
-                toggleFavorite={toggleFavorite}
               />
             ))}
           </div>

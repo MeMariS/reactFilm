@@ -1,24 +1,24 @@
 import { useState } from "react";
 import { Input, Select } from "@headlessui/react";
-import MoviesList from "./MoviesList";
-import movies from "./movies.js";
+import MoviesList from "./MoviesList.jsx";
 import { useEffect } from "react";
 import GenreSelect from "./GenreSelect.jsx";
 import YearSelect from "./YearSelect.jsx";
 import RatingSelect from "./RatingSelect.jsx";
-import Button from "./Button";
-import { useSearchParams } from "react-router-dom";
+import Button from "./Button.jsx";
 import { Copy } from "lucide-react";
 import { ToastContainer, toast } from "react-toastify";
+import { useSearchParams } from "react-router-dom";
 
-function HomePage() {
+function HomePageTest() {
+  const [allMovies, setAllMovies] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
 
   const [search, setSearch] = useState(searchParams.get("search") || "");
   const [genre, setGenre] = useState(searchParams.get("genre") || "All");
   const [year, setYear] = useState(searchParams.get("year") || "All");
   const [rating, setRating] = useState(searchParams.get("rating") || "All");
-  const [displayedMovies, setDisplayedMovies] = useState(movies);
+  const [displayedMovies, setDisplayedMovies] = useState(allMovies);
 
   useEffect(() => {
     const fetchMovies = async () => {
@@ -39,8 +39,17 @@ function HomePage() {
 
         const data = await response.json();
         console.log(data);
-        // Here we'll need to set the list of movies (data.results) to displayedMovies
-        // setMovies(data.results);
+        const mapped = data.results.map((m) => ({
+          id: m.id,
+          title: m.title,
+          poster: m.poster_path
+            ? `https://image.tmdb.org/t/p/w500${m.poster_path}`
+            : "",
+          rating: m.vote_average,
+          year: m.release_date?.slice(0, 4),
+        }));
+        setAllMovies(mapped);
+        setDisplayedMovies(mapped);
       } catch (err) {
         console.log(err);
         // setError(err.message);
@@ -61,19 +70,19 @@ function HomePage() {
 
   useEffect(() => {
     const filterMovies = () => {
-      const filtered = movies.filter((movie) => {
+      const filtered = allMovies.filter((movie) => {
         const titleMatches = movie.title
           .toLowerCase()
           .includes(search.toLowerCase());
 
-        const genreMatches =
-          genre === "All" ||
-          movie.genres.some((g) => g === genre.toLowerCase());
+        // const genreMatches =
+        //   genre === "All" ||
+        //   movie.genres.some((g) => g === genre.toLowerCase());
         const yearMatches = year === "All" || movie.year === parseInt(year);
         const ratingMatches =
           rating === "All" || movie.rating === Number(rating);
 
-        return titleMatches && genreMatches && yearMatches && ratingMatches;
+        return titleMatches && yearMatches && ratingMatches;
       });
       setDisplayedMovies(filtered);
     };
@@ -83,7 +92,7 @@ function HomePage() {
     return () => {
       clearTimeout(id);
     };
-  }, [search, genre, year, rating]);
+  }, [search, genre, year, rating, allMovies]);
 
   const hasActiveFilters =
     genre !== "All" || year !== "All" || rating !== "All" || search;
@@ -121,35 +130,17 @@ function HomePage() {
             onClick={resetAllFilters}
             variant="secondary"
           />
-        </div>
-
-        <div className="flex flex-wrap items-center justify-between gap-3">
-          <div className="flex flex-wrap items-center gap-3">
-            <YearSelect value={year} onChange={setYear} />
-            <GenreSelect value={genre} onChange={setGenre} />
-            <RatingSelect value={rating} onChange={setRating} />
-          </div>
-
-          <div className="flex items-center gap-3">
-            {hasActiveFilters && (
-              <Button
-                text="Clear All"
-                onClick={resetAllFilters}
-                variant="secondary"
-              />
-            )}
-            <Button
-              icon={<Copy size={20} />}
-              text="Copy Link"
-              variant="secondary"
-              onClick={() => {
-                copyLink();
-                notify();
-              }}
-              className="flex"
-            />
-          </div>
-        </div>
+        )}
+        <Button
+          icon={<Copy size={20} />}
+          text="Copy Link"
+          variant="secondary"
+          onClick={() => {
+            copyLink();
+            notify();
+          }}
+          className="flex"
+        />
         <ToastContainer autoClose={2000} />
       </div>
       {hasActiveFilters && (
@@ -161,4 +152,4 @@ function HomePage() {
     </div>
   );
 }
-export default HomePage;
+export default HomePageTest;
