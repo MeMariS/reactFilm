@@ -26,7 +26,7 @@ function GenreSelect({ value, onChange }) {
         onChange={(e) => {
           onChange(e.target.value);
         }}
-        className="hover:cursor-pointer border border-pink-300 rounded-md"
+        className="hover:cursor-pointer"
       >
         {allGenres.map((genre) => (
           <option key={genre} value={genre}>

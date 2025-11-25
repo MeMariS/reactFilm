@@ -39,7 +39,6 @@ function HomePage() {
 
         const data = await response.json();
         console.log(data);
-        // Here we'll need to set the list of movies (data.results) to displayedMovies
         // setMovies(data.results);
       } catch (err) {
         console.log(err);
@@ -60,29 +59,20 @@ function HomePage() {
   }, [search, genre, year, rating, searchParams, setSearchParams]);
 
   useEffect(() => {
-    const filterMovies = () => {
-      const filtered = movies.filter((movie) => {
-        const titleMatches = movie.title
-          .toLowerCase()
-          .includes(search.toLowerCase());
+    const filtered = movies.filter((movie) => {
+      const titleMatches = movie.title
+        .toLowerCase()
+        .includes(search.toLowerCase());
 
-        const genreMatches =
-          genre === "All" ||
-          movie.genres.some((g) => g === genre.toLowerCase());
-        const yearMatches = year === "All" || movie.year === parseInt(year);
-        const ratingMatches =
-          rating === "All" || movie.rating === Number(rating);
+      const genreMatches =
+        genre === "All" || movie.genres.some((g) => g === genre.toLowerCase());
+      const yearMatches = year === "All" || movie.year === parseInt(year);
+      const ratingMatches = rating === "All" || movie.rating === Number(rating);
 
-        return titleMatches && genreMatches && yearMatches && ratingMatches;
-      });
-      setDisplayedMovies(filtered);
-    };
+      return titleMatches && genreMatches && yearMatches && ratingMatches;
+    });
 
-    const id = setTimeout(filterMovies, 300);
-
-    return () => {
-      clearTimeout(id);
-    };
+    setDisplayedMovies(filtered);
   }, [search, genre, year, rating]);
 
   const hasActiveFilters =
@@ -103,23 +93,15 @@ function HomePage() {
 
   return (
     <div className="max-w-[1200px] mx-auto">
-      <div className="px-10 flex justify-center items-center gap-4">
-        <Input
-          onChange={(e) => setSearch(e.target.value.trim())}
-          value={search}
-          placeholder="Search for a movie"
-          name="search"
-          type="text"
-          className="border border-pink-300 rounded-md px-4 py-2 w-64 focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
-        <YearSelect value={year} onChange={setYear} />
-        <GenreSelect value={genre} onChange={setGenre} />
-        <RatingSelect value={rating} onChange={setRating} />
-        {hasActiveFilters && (
-          <Button
-            text="Clear All"
-            onClick={resetAllFilters}
-            variant="secondary"
+      <div className="m-5 px-10 py-8 flex flex-col gap-4 w-full bg-gray-50 rounded-md">
+        <div className="flex w-full">
+          <Input
+            onChange={(e) => setSearch(e.target.value.trim())}
+            value={search}
+            placeholder="Search for a movie"
+            name="search"
+            type="text"
+            className="border border-gray-400 rounded-md px-4 py-2 w-64 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
 
