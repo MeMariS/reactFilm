@@ -41,7 +41,7 @@ function HomePageTest() {
         console.log(data);
         const mapped = data.results.map((m) => ({
           id: m.id,
-          title: m.original_title,
+          title: m.title,
           poster: m.poster_path
             ? `https://image.tmdb.org/t/p/w500${m.poster_path}`
             : "",
