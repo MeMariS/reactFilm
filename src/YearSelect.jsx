@@ -16,12 +16,12 @@ const allYears = [
 function YearSelect({ value, onChange }) {
   return (
     <>
-      <Field className={"flex "}>
+      <Field className="flex items-center gap-2 hover:cursor-pointer border border-gray-200 rounded-md px-2">
         <Label>Years</Label>
         <Select
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          className="hover:cursor-pointer border border-pink-300 rounded-md"
+          className="hover:cursor-pointer"
         >
           {allYears.map((year) => (
             <option key={year} value={year}>

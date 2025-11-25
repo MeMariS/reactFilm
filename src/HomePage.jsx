@@ -121,17 +121,35 @@ function HomePage() {
             onClick={resetAllFilters}
             variant="secondary"
           />
-        )}
-        <Button
-          icon={<Copy size={20} />}
-          text="Copy Link"
-          variant="secondary"
-          onClick={() => {
-            copyLink();
-            notify();
-          }}
-          className="flex"
-        />
+        </div>
+
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <div className="flex flex-wrap items-center gap-3">
+            <YearSelect value={year} onChange={setYear} />
+            <GenreSelect value={genre} onChange={setGenre} />
+            <RatingSelect value={rating} onChange={setRating} />
+          </div>
+
+          <div className="flex items-center gap-3">
+            {hasActiveFilters && (
+              <Button
+                text="Clear All"
+                onClick={resetAllFilters}
+                variant="secondary"
+              />
+            )}
+            <Button
+              icon={<Copy size={20} />}
+              text="Copy Link"
+              variant="secondary"
+              onClick={() => {
+                copyLink();
+                notify();
+              }}
+              className="flex"
+            />
+          </div>
+        </div>
         <ToastContainer autoClose={2000} />
       </div>
       {hasActiveFilters && (
