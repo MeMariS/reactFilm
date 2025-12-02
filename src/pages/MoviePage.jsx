@@ -6,7 +6,7 @@ import { useState, useEffect } from 'react';
 function MoviePage() {
   const params = useParams();
   const movie = movies.find((m) => m.id === Number(params.movieId));
-
+    
   const [isFavorite, setIsFavorite] = useState(false);
 
   useEffect(() => {
@@ -16,7 +16,7 @@ function MoviePage() {
       const exists = favorites.some((m) => m.id === movie.id);
       setIsFavorite(exists);
     }
-  }, [movie.id]);
+  }, [movie?.id]);
 
   // Когда страница загружается первый раз:
   // Получить доступ к LS – getItem
