@@ -11,6 +11,8 @@ const allYears = [
   "2014",
   "2017",
   "2019",
+  "2024",
+  "2025",
 ];
 
 function YearSelect({ value, onChange }) {

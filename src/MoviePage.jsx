@@ -1,25 +1,49 @@
 import { useParams } from "react-router-dom";
 import movies from "./movies.js";
 import Button from "./Button";
+import { useState, useEffect } from "react";
 
 function MoviePage() {
-  let params = useParams();
+  const params = useParams();
   const movie = movies.find((m) => m.id === Number(params.movieId));
+
+  const [isFavorite, setIsFavorite] = useState(false);
 
   if (!movie) {
     return <p className="p-6 text-red-600">Фильм не найден</p>;
   }
+
+  useEffect(() => {
+    const saved = localStorage.getItem("favorites");
+    if (saved) {
+      const favorites = JSON.parse(saved);
+      const exists = favorites.some((m) => m.id === movie.id);
+      setIsFavorite(exists);
+    }
+  }, [movie.id]);
 
   // Когда страница загружается первый раз:
   // Получить доступ к LS – getItem
   // Проверить, есть ли в favorites в LS текущий фильм
   // Если есть, выставляем isFavorite = true
 
-  const isFavorite = false;
+  // const isFavorite = false;
 
   // Сохранить ИЛИ удалить фильм в LS (в зависимости от того, есть он уже в favorites или нет)
   // – setItem
-  const toggleFavorite = (movie) => {};
+  const toggleFavorite = () => {
+    const saved = localStorage.getItem("favorites");
+    let favorites = JSON.parse(saved || "[]");
+
+    if (isFavorite) {
+      favorites = favorites.filter((m) => m.id !== movie.id);
+    } else {
+      favorites.push(movie);
+    }
+
+    localStorage.setItem("favorites", JSON.stringify(favorites));
+    setIsFavorite(!isFavorite);
+  };
 
   return (
     <div className="max-w-3xl mx-auto pt-6 px-4 md:px-0">

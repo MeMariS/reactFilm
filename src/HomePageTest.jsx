@@ -2,13 +2,14 @@ import { useState } from "react";
 import { Input, Select } from "@headlessui/react";
 import MoviesList from "./MoviesList.jsx";
 import { useEffect } from "react";
-import GenreSelect from "./GenreSelect.jsx";
+// import GenreSelect from "./GenreSelect.jsx";
 import YearSelect from "./YearSelect.jsx";
 import RatingSelect from "./RatingSelect.jsx";
 import Button from "./Button.jsx";
 import { Copy } from "lucide-react";
 import { ToastContainer, toast } from "react-toastify";
 import { useSearchParams } from "react-router-dom";
+import GenreSelectTest from "./GenreSelectTest.jsx";
 
 function HomePageTest() {
   const [allMovies, setAllMovies] = useState([]);
@@ -19,6 +20,8 @@ function HomePageTest() {
   const [year, setYear] = useState(searchParams.get("year") || "All");
   const [rating, setRating] = useState(searchParams.get("rating") || "All");
   const [displayedMovies, setDisplayedMovies] = useState(allMovies);
+
+  const [testGenre, setTestGenre] = useState("");
 
   useEffect(() => {
     const fetchMovies = async () => {
@@ -39,14 +42,15 @@ function HomePageTest() {
 
         const data = await response.json();
         console.log(data);
-        const mapped = data.results.map((m) => ({
-          id: m.id,
-          title: m.title,
-          poster: m.poster_path
-            ? `https://image.tmdb.org/t/p/w500${m.poster_path}`
+        const mapped = data.results.map((movie) => ({
+          id: movie.id,
+          title: movie.title,
+          poster: movie.poster_path
+            ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
             : "",
-          rating: m.vote_average,
-          year: m.release_date?.slice(0, 4),
+          rating: movie.vote_average,
+          year: movie.release_date?.slice(0, 4),
+          genre_ids: movie.genre_ids || [],
         }));
         setAllMovies(mapped);
         setDisplayedMovies(mapped);
@@ -70,19 +74,27 @@ function HomePageTest() {
 
   useEffect(() => {
     const filterMovies = () => {
+      const activeGenreId = testGenre === "" ? null : Number(testGenre);
       const filtered = allMovies.filter((movie) => {
         const titleMatches = movie.title
           .toLowerCase()
           .includes(search.toLowerCase());
 
-        // const genreMatches =
-        //   genre === "All" ||
-        //   movie.genres.some((g) => g === genre.toLowerCase());
-        const yearMatches = year === "All" || movie.year === parseInt(year);
+        const genreMatches =
+          !activeGenreId || movie.genre_ids.includes(activeGenreId);
+        const yearMatches = year === "All" || movie.year === String(year);
         const ratingMatches =
           rating === "All" || movie.rating === Number(rating);
+        console.log(
+          "movie.year:",
+          movie.year,
+          typeof movie.year,
+          "state year:",
+          year,
+          typeof year
+        );
 
-        return titleMatches && yearMatches && ratingMatches;
+        return titleMatches && genreMatches && yearMatches && ratingMatches;
       });
       setDisplayedMovies(filtered);
     };
@@ -92,7 +104,7 @@ function HomePageTest() {
     return () => {
       clearTimeout(id);
     };
-  }, [search, genre, year, rating, allMovies]);
+  }, [search, testGenre, year, rating, allMovies]);
 
   const hasActiveFilters =
     genre !== "All" || year !== "All" || rating !== "All" || search;
@@ -122,7 +134,8 @@ function HomePageTest() {
           className="border border-pink-300 rounded-md px-4 py-2 w-64 focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
         <YearSelect value={year} onChange={setYear} />
-        <GenreSelect value={genre} onChange={setGenre} />
+        {/* <GenreSelect value={genre} onChange={setGenre} /> */}
+        <GenreSelectTest value={testGenre} onChange={setTestGenre} />
         <RatingSelect value={rating} onChange={setRating} />
         {hasActiveFilters && (
           <Button

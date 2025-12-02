@@ -1,9 +1,20 @@
-import { useState } from 'react';
-import EmptyState from './EmptyState.jsx';
-import MovieCard from './MovieCard.jsx';
+import { useEffect, useState } from "react";
+import EmptyState from "./EmptyState.jsx";
+import MovieCard from "./MovieCard.jsx";
 
 function Favorites() {
   const [favorites, setFavorites] = useState([]);
+
+  useEffect(() => {
+    const saved = localStorage.getItem("favorites");
+    if (saved) {
+      setFavorites(JSON.parse(saved));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("favorites", JSON.stringify(favorites));
+  }, [favorites]);
 
   // Когда страница загружается первый раз:
   // Получаем доступ к favorites в LS
@@ -22,10 +33,7 @@ function Favorites() {
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
             {favorites.map((movie) => (
-              <MovieCard
-                key={movie.id}
-                movie={movie}
-              />
+              <MovieCard key={movie.id} movie={movie} />
             ))}
           </div>
         )}
