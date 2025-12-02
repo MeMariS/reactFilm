@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import Button from "./Button";
-import logo from "./images/Blue_Long_Logo.svg";
+import logo from "../images/Blue_Long_Logo.svg";
 
 function Footer() {
   return (

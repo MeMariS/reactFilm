@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import EmptyState from "./EmptyState.jsx";
-import MovieCard from "./MovieCard.jsx";
+import EmptyState from "../components/EmptyState.jsx";
+import MovieCard from "../components/MovieCard.jsx";
 
-function Favorites() {
+function FavoritesPage() {
   const [favorites, setFavorites] = useState([]);
 
   useEffect(() => {
@@ -41,4 +41,4 @@ function Favorites() {
     </>
   );
 }
-export default Favorites;
+export default FavoritesPage;

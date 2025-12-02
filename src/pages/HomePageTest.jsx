@@ -1,15 +1,14 @@
 import { useState } from "react";
 import { Input, Select } from "@headlessui/react";
-import MoviesList from "./MoviesList.jsx";
+import MoviesList from "../components/MoviesList.jsx";
 import { useEffect } from "react";
-// import GenreSelect from "./GenreSelect.jsx";
-import YearSelect from "./YearSelect.jsx";
-import RatingSelect from "./RatingSelect.jsx";
-import Button from "./Button.jsx";
+import YearSelect from "../components/YearSelect.jsx";
+import RatingSelect from "../components/RatingSelect.jsx";
+import Button from "../components/Button.jsx";
 import { Copy } from "lucide-react";
 import { ToastContainer, toast } from "react-toastify";
 import { useSearchParams } from "react-router-dom";
-import GenreSelectTest from "./GenreSelectTest.jsx";
+import GenreSelectTest from "../components/GenreSelectTest.jsx";
 
 function HomePageTest() {
   const [allMovies, setAllMovies] = useState([]);

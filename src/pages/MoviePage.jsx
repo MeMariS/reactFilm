@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
-import movies from './movies.js';
-import Button from './Button';
+import movies from '../movies.js';
+import Button from '../components/Button';
 import { useState, useEffect } from 'react';
 
 function MoviePage() {

@@ -25,7 +25,6 @@ function GenreSelect({ value, onChange }) {
 
         const data = await response.json();
         console.log(data);
-        // {genres: [{id:28, name: "Action" }, {}, ...]}
         setGenres(data.genres || []);
       } catch (err) {
         console.error(err);
@@ -50,6 +49,7 @@ function GenreSelect({ value, onChange }) {
   }
 
   if (error) {
+    // Поменять на такой же вид, как в loading
     return <div className="text-red-600">Ошибка загрузки жанров: {error}</div>;
   }
 
