@@ -1,22 +1,6 @@
-import { Select, Label, Field } from "@headlessui/react";
-import { useState, useEffect } from "react";
+import { Select, Label, Field } from '@headlessui/react';
+import { useState, useEffect } from 'react';
 
-// Add all genres from movies.js
-// const allGenres = [
-//   "All",
-//   "sci-fi",
-//   "drama",
-//   "thriller",
-//   "action",
-//   "comedy",
-//   "mystery",
-//   "adventure",
-//   "romance",
-//   "crime",
-//   "music",
-//   "fantasy",
-//   "animation",
-// ];
 function GenreSelect({ value, onChange }) {
   const [genres, setGenres] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -26,13 +10,13 @@ function GenreSelect({ value, onChange }) {
     const fetchGenres = async () => {
       try {
         const response = await fetch(
-          "https://api.themoviedb.org/3/genre/movie/list?language=en",
+          'https://api.themoviedb.org/3/genre/movie/list?language=en',
           {
             headers: {
-              accept: "application/json",
+              accept: 'application/json',
               Authorization: `Bearer ${import.meta.env.VITE_TMDB_TOKEN}`,
             },
-          }
+          },
         );
 
         if (!response.ok) {
@@ -40,6 +24,8 @@ function GenreSelect({ value, onChange }) {
         }
 
         const data = await response.json();
+        console.log(data);
+        // {genres: [{id:28, name: "Action" }, {}, ...]}
         setGenres(data.genres || []);
       } catch (err) {
         console.error(err);
@@ -74,7 +60,7 @@ function GenreSelect({ value, onChange }) {
         value={value}
         onChange={(e) => {
           const val = e.target.value;
-          onChange(val === "" ? "" : Number(val));
+          onChange(val);
         }}
         className="hover:cursor-pointer"
       >

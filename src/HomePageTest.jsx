@@ -21,7 +21,7 @@ function HomePageTest() {
   const [rating, setRating] = useState(searchParams.get("rating") || "All");
   const [displayedMovies, setDisplayedMovies] = useState(allMovies);
 
-  const [testGenre, setTestGenre] = useState("");
+  const [testGenre, setTestGenre] = useState(null);
 
   useEffect(() => {
     const fetchMovies = async () => {
@@ -74,7 +74,7 @@ function HomePageTest() {
 
   useEffect(() => {
     const filterMovies = () => {
-      const activeGenreId = testGenre === "" ? null : Number(testGenre);
+      const activeGenreId = testGenre === null ? null : Number(testGenre);
       const filtered = allMovies.filter((movie) => {
         const titleMatches = movie.title
           .toLowerCase()
@@ -134,7 +134,6 @@ function HomePageTest() {
           className="border border-pink-300 rounded-md px-4 py-2 w-64 focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
         <YearSelect value={year} onChange={setYear} />
-        {/* <GenreSelect value={genre} onChange={setGenre} /> */}
         <GenreSelectTest value={testGenre} onChange={setTestGenre} />
         <RatingSelect value={rating} onChange={setRating} />
         {hasActiveFilters && (
