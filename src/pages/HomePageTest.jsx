@@ -20,7 +20,7 @@ function HomePageTest() {
   const [rating, setRating] = useState(searchParams.get("rating") || "All");
   const [displayedMovies, setDisplayedMovies] = useState(allMovies);
 
-  const [testGenre, setTestGenre] = useState(null);
+  const [testGenre, setTestGenre] = useState("");
 
   useEffect(() => {
     const fetchMovies = async () => {

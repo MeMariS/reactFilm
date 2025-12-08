@@ -1,23 +1,62 @@
 import { useParams } from "react-router-dom";
-import movies from "../movies.js";
 import Button from "../components/Button";
 import { useState, useEffect } from "react";
 
 function MoviePage() {
-  const params = useParams();
-  const movie = movies.find((m) => m.id === Number(params.movieId));
+  console.log("render:", { movie, loading, error });
+  const { movieId } = useParams();
+
+  const [movie, setMovie] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   const [isFavorite, setIsFavorite] = useState(false);
+  useEffect(() => {
+    const fetchIdMovies = async () => {
+      console.log("movieId из URL:", movieId);
+      try {
+        console.log("movieId:", movieId);
+        const response = await fetch(
+          `https://api.themoviedb.org/3/movie/${movieId}?language=en-US`,
+          {
+            headers: {
+              accept: "application/json",
+              Authorization: `Bearer ${import.meta.env.VITE_TMDB_TOKEN}`,
+            },
+          }
+        );
 
-  // useEffect(() => {
-  //   if (!movie) return;
-  //   const saved = localStorage.getItem("favorites");
-  //   if (saved) {
-  //     const favorites = JSON.parse(saved);
-  //     const exists = favorites.some((m) => m && m.id === movie.id);
-  //     setIsFavorite(exists);
-  //   }
-  // }, [movie?.id]);
+        console.log("response status:", response.status);
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        console.log("data:", data);
+        setMovie({
+          id: data.id,
+          title: data.title,
+          poster: data.poster_path
+            ? `https://image.tmdb.org/t/p/w500${data.poster_path}`
+            : "",
+          rating: data.vote_average,
+          year: data.release_date?.slice(0, 4),
+          genres: Array.isArray(data.genres)
+            ? data.genres.map((g) => g.name)
+            : [],
+          description: data.overview,
+        });
+      } catch (err) {
+        console.log(err);
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchIdMovies();
+  }, [movieId]);
+
   useEffect(() => {
     if (!movie) return;
 
@@ -50,16 +89,12 @@ function MoviePage() {
     setIsFavorite(!isFavorite);
   };
 
-  // Когда страница загружается первый раз:
-  // Получить доступ к LS – getItem
-  // Проверить, есть ли в favorites в LS текущий фильм
-  // Если есть, выставляем isFavorite = true
-
-  // const isFavorite = false;
-
-  // Сохранить ИЛИ удалить фильм в LS (в зависимости от того, есть он уже в favorites или нет)
-  // – setItem
-
+  if (loading) {
+    return <p className="p-6 text-red-600">Loading...</p>;
+  }
+  if (error) {
+    return <p className="p-6 text-red-600">{error}</p>;
+  }
   if (!movie) {
     return <p className="p-6 text-red-600">Фильм не найден</p>;
   }
@@ -80,7 +115,7 @@ function MoviePage() {
             <h2 className="text-xl sm:text-2xl font-semibold">{movie.title}</h2>
             <Button
               text={isFavorite ? "Remove" : "Add to favorites"}
-              onClick={() => toggleFavorite(movie)}
+              onClick={toggleFavorite}
               className={
                 isFavorite ? "bg-red-500" : "bg-blue-400 hover:bg-blue-500"
               }
@@ -89,11 +124,11 @@ function MoviePage() {
 
           <p className="mt-2 text-sm text-gray-700">Year: {movie.year}</p>
           <p className="text-sm text-gray-700">Rating: {movie.rating}</p>
-          <p className="text-sm text-gray-700">Director: {movie.director}</p>
+          {/* <p className="text-sm text-gray-700">Director: {movie.director}</p> */}
           <p className="text-sm text-gray-700">
             Genres: {movie.genres.join(", ")}
           </p>
-          <p className="text-sm text-gray-700">Actors: {movie.actors}</p>
+          {/* <p className="text-sm text-gray-700">Actors: {movie.actors}</p> */}
 
           <div className="mt-3">
             <h3 className="font-semibold">Description:</h3>

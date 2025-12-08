@@ -1,9 +1,10 @@
 import { Link } from "react-router-dom";
 
-function MovieCard({ movie }) {
+function MovieCard({ movie, linkApi }) {
+  const link = linkApi ? `/movie-api/${movie.id}` : `/movie/${movie.id}`;
   return (
     <>
-      <Link to={`/movie/${movie.id}`}>
+      <Link to={link}>
         <div className="w-full max-w-xs mx-auto sm:w-48 md:w-56 lg:w-60 border rounded-2xl shadow-md overflow-hidden bg-white">
           <img src={movie.poster} alt="" />
           <div className="p-3">

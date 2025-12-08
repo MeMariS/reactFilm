@@ -1,5 +1,5 @@
-import { Select, Label, Field } from '@headlessui/react';
-import { useState, useEffect } from 'react';
+import { Select, Label, Field } from "@headlessui/react";
+import { useState, useEffect } from "react";
 
 function GenreSelect({ value, onChange }) {
   const [genres, setGenres] = useState([]);
@@ -10,13 +10,13 @@ function GenreSelect({ value, onChange }) {
     const fetchGenres = async () => {
       try {
         const response = await fetch(
-          'https://api.themoviedb.org/3/genre/movie/list?language=en',
+          "https://api.themoviedb.org/3/genre/movie/list?language=en",
           {
             headers: {
-              accept: 'application/json',
+              accept: "application/json",
               Authorization: `Bearer ${import.meta.env.VITE_TMDB_TOKEN}`,
             },
-          },
+          }
         );
 
         if (!response.ok) {
@@ -36,6 +36,8 @@ function GenreSelect({ value, onChange }) {
 
     fetchGenres();
   }, []);
+
+  console.log("GenreSelectTest value:", value);
 
   if (loading) {
     return (
@@ -57,7 +59,7 @@ function GenreSelect({ value, onChange }) {
     <Field className="flex items-center gap-2 hover:cursor-pointer border border-gray-200 rounded-md px-2">
       <Label>Genres</Label>
       <Select
-        value={value}
+        value={value ?? ""}
         onChange={(e) => {
           const val = e.target.value;
           onChange(val);

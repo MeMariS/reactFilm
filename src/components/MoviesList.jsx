@@ -1,7 +1,7 @@
 import EmptyState from "./EmptyState.jsx";
 import MovieCard from "./MovieCard.jsx";
 
-function MoviesList({ movies }) {
+function MoviesList({ movies, linkApi }) {
   if (!movies || movies.length === 0) {
     return <EmptyState message="Not found, sorry☹️" />;
   }
@@ -9,7 +9,7 @@ function MoviesList({ movies }) {
     <>
       <div className="p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 justify-items-center">
         {movies.map((movie) => (
-          <MovieCard key={movie.id} movie={movie} />
+          <MovieCard key={movie.id} movie={movie} linkApi={linkApi} />
         ))}
       </div>
     </>

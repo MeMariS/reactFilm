@@ -12,10 +12,6 @@ function FavoritesPage() {
     }
   }, []);
 
-  useEffect(() => {
-    localStorage.setItem("favorites", JSON.stringify(favorites));
-  }, [favorites]);
-
   // Когда страница загружается первый раз:
   // Получаем доступ к favorites в LS
   // Сохраняем их в useState favorites
