@@ -82,16 +82,28 @@ function HomePageTest() {
         const genreMatches =
           !activeGenreId || movie.genre_ids.includes(activeGenreId);
         const yearMatches = year === "All" || movie.year === String(year);
-        const ratingMatches =
-          rating === "All" || movie.rating === Number(rating);
-        console.log(
-          "movie.year:",
-          movie.year,
-          typeof movie.year,
-          "state year:",
-          year,
-          typeof year
-        );
+        // const ratingMatches =
+        //   rating === "All" || movie.rating === Number(rating);
+        // console.log(
+        //   "movie.year:",
+        //   movie.year,
+        //   typeof movie.year,
+        //   "state year:",
+        //   year,
+        //   typeof year
+        // );
+
+        let ratingMatches = true;
+
+        if (rating !== "All") {
+          if (rating.includes("-")) {
+            const [min, max] = rating.split("-").map(Number);
+            ratingMatches = movie.rating >= min && movie.rating < max;
+          } else if (rating.includes("+")) {
+            const min = Number(rating.replace("+", ""));
+            ratingMatches = movie.rating >= min;
+          }
+        }
 
         return titleMatches && genreMatches && yearMatches && ratingMatches;
       });

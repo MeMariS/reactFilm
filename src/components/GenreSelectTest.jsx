@@ -52,7 +52,14 @@ function GenreSelect({ value, onChange }) {
 
   if (error) {
     // Поменять на такой же вид, как в loading
-    return <div className="text-red-600">Ошибка загрузки жанров: {error}</div>;
+    return (
+      <div className="flex items-center gap-2 border rounded px-2 text-red-600">
+        <label className="font-medium">Genres</label>
+        <select disabled>
+          <option>Ошибка загрузки жанров: {error}</option>
+        </select>
+      </div>
+    );
   }
 
   return (

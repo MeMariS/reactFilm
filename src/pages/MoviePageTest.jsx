@@ -3,7 +3,6 @@ import Button from "../components/Button";
 import { useState, useEffect } from "react";
 
 function MoviePage() {
-  console.log("render:", { movie, loading, error });
   const { movieId } = useParams();
 
   const [movie, setMovie] = useState(null);
