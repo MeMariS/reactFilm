@@ -8,9 +8,9 @@ import Button from "../components/Button.jsx";
 import { Copy } from "lucide-react";
 import { ToastContainer, toast } from "react-toastify";
 import { useSearchParams } from "react-router-dom";
-import GenreSelectTest from "../components/GenreSelectTest.jsx";
+import GenreSelect from "../components/GenreSelect.jsx";
 
-function HomePageTest() {
+function HomePage() {
   const [allMovies, setAllMovies] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -20,7 +20,7 @@ function HomePageTest() {
   const [rating, setRating] = useState(searchParams.get("rating") || "All");
   const [displayedMovies, setDisplayedMovies] = useState(allMovies);
 
-  const [testGenre, setTestGenre] = useState("");
+  const [apiGenre, setApiGenre] = useState("");
 
   useEffect(() => {
     const fetchMovies = async () => {
@@ -73,7 +73,7 @@ function HomePageTest() {
 
   useEffect(() => {
     const filterMovies = () => {
-      const activeGenreId = testGenre === null ? null : Number(testGenre);
+      const activeGenreId = apiGenre === null ? null : Number(apiGenre);
       const filtered = allMovies.filter((movie) => {
         const titleMatches = movie.title
           .toLowerCase()
@@ -115,7 +115,7 @@ function HomePageTest() {
     return () => {
       clearTimeout(id);
     };
-  }, [search, testGenre, year, rating, allMovies]);
+  }, [search, apiGenre, year, rating, allMovies]);
 
   const hasActiveFilters =
     genre !== "All" || year !== "All" || rating !== "All" || search;
@@ -145,7 +145,7 @@ function HomePageTest() {
           className="border border-pink-300 rounded-md px-4 py-2 w-64 focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
         <YearSelect value={year} onChange={setYear} />
-        <GenreSelectTest value={testGenre} onChange={setTestGenre} />
+        <GenreSelect value={apiGenre} onChange={setApiGenre} />
         <RatingSelect value={rating} onChange={setRating} />
         {hasActiveFilters && (
           <Button
@@ -175,4 +175,4 @@ function HomePageTest() {
     </div>
   );
 }
-export default HomePageTest;
+export default HomePage;
