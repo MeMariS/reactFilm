@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import Button from "../components/Button";
 import { useState, useEffect } from "react";
+import { useFavorites } from "../hooks/useFavorites";
 
 function MoviePage() {
   const { movieId } = useParams();
@@ -9,7 +10,9 @@ function MoviePage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const [isFavorite, setIsFavorite] = useState(false);
+  const { isFavorite, addFavorites, removeFavorites } = useFavorites();
+
+  // const [isFavorite, setIsFavorite] = useState(false);
   useEffect(() => {
     const fetchIdMovies = async () => {
       console.log("movieId из URL:", movieId);
@@ -56,37 +59,37 @@ function MoviePage() {
     fetchIdMovies();
   }, [movieId]);
 
-  useEffect(() => {
-    if (!movie) return;
+  // useEffect(() => {
+  //   if (!movie) return;
 
-    const saved = localStorage.getItem("favorites");
-    if (!saved) {
-      setIsFavorite(false);
-      return;
-    }
+  //   const saved = localStorage.getItem("favorites");
+  //   if (!saved) {
+  //     setIsFavorite(false);
+  //     return;
+  //   }
 
-    const favorites = JSON.parse(saved);
-    if (!Array.isArray(favorites)) {
-      setIsFavorite(false);
-      return;
-    }
-    const exists = favorites.some((m) => m && m.id === movie.id);
-    setIsFavorite(exists);
-  }, [movie]);
+  //   const favorites = JSON.parse(saved);
+  //   if (!Array.isArray(favorites)) {
+  //     setIsFavorite(false);
+  //     return;
+  //   }
+  //   const exists = favorites.some((m) => m && m.id === movie.id);
+  //   setIsFavorite(exists);
+  // }, [movie]);
 
-  const toggleFavorite = () => {
-    const saved = localStorage.getItem("favorites");
-    let favorites = JSON.parse(saved || "[]");
+  // const toggleFavorite = () => {
+  //   const saved = localStorage.getItem("favorites");
+  //   let favorites = JSON.parse(saved || "[]");
 
-    if (isFavorite) {
-      favorites = favorites.filter((m) => m.id !== movie.id);
-    } else {
-      favorites.push(movie);
-    }
+  //   if (isFavorite) {
+  //     favorites = favorites.filter((m) => m.id !== movie.id);
+  //   } else {
+  //     favorites.push(movie);
+  //   }
 
-    localStorage.setItem("favorites", JSON.stringify(favorites));
-    setIsFavorite(!isFavorite);
-  };
+  //   localStorage.setItem("favorites", JSON.stringify(favorites));
+  //   setIsFavorite(!isFavorite);
+  // };
 
   if (loading) {
     return <p className="p-6 text-red-600">Loading...</p>;
@@ -113,10 +116,16 @@ function MoviePage() {
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
             <h2 className="text-xl sm:text-2xl font-semibold">{movie.title}</h2>
             <Button
-              text={isFavorite ? "Remove" : "Add to favorites"}
-              onClick={toggleFavorite}
+              text={isFavorite(movie.id) ? "Remove" : "Add to favorites"}
+              onClick={() =>
+                isFavorite(movie.id)
+                  ? removeFavorites(movie.id)
+                  : addFavorites(movie)
+              }
               className={
-                isFavorite ? "bg-red-500" : "bg-blue-400 hover:bg-blue-500"
+                isFavorite(movie.id)
+                  ? "bg-red-500"
+                  : "bg-blue-400 hover:bg-blue-500"
               }
             />
           </div>
