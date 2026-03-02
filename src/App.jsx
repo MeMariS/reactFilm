@@ -10,22 +10,18 @@ import { FavoritesProvider } from "./context/FavoritesContext.jsx";
 
 function App() {
   return (
-    <>
-      <FavoritesProvider>
-        <div className="flex flex-col min-h-screen">
-          <Header />
-          <main className="flex-grow">
-            <Routes>
-              <Route path="/" element={<HomePage />} />
-              <Route path="/movie-api/:movieId" element={<MoviePage />} />
-              <Route path="/favorites" element={<FavoritesPage />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </main>
-          <Footer />
-        </div>
-      </FavoritesProvider>
-    </>
+    <div className="flex flex-col min-h-screen">
+      <Header />
+      <main className="flex-grow">
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/movie-api/:movieId" element={<MoviePage />} />
+          <Route path="/favorites" element={<FavoritesPage />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </main>
+      <Footer />
+    </div>
   );
 }
 

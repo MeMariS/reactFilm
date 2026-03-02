@@ -12,7 +12,6 @@ function MoviePage() {
 
   const { isFavorite, addFavorites, removeFavorites } = useFavorites();
 
-  // const [isFavorite, setIsFavorite] = useState(false);
   useEffect(() => {
     const fetchIdMovies = async () => {
       console.log("movieId из URL:", movieId);
@@ -25,7 +24,7 @@ function MoviePage() {
               accept: "application/json",
               Authorization: `Bearer ${import.meta.env.VITE_TMDB_TOKEN}`,
             },
-          }
+          },
         );
 
         console.log("response status:", response.status);
@@ -58,38 +57,6 @@ function MoviePage() {
 
     fetchIdMovies();
   }, [movieId]);
-
-  // useEffect(() => {
-  //   if (!movie) return;
-
-  //   const saved = localStorage.getItem("favorites");
-  //   if (!saved) {
-  //     setIsFavorite(false);
-  //     return;
-  //   }
-
-  //   const favorites = JSON.parse(saved);
-  //   if (!Array.isArray(favorites)) {
-  //     setIsFavorite(false);
-  //     return;
-  //   }
-  //   const exists = favorites.some((m) => m && m.id === movie.id);
-  //   setIsFavorite(exists);
-  // }, [movie]);
-
-  // const toggleFavorite = () => {
-  //   const saved = localStorage.getItem("favorites");
-  //   let favorites = JSON.parse(saved || "[]");
-
-  //   if (isFavorite) {
-  //     favorites = favorites.filter((m) => m.id !== movie.id);
-  //   } else {
-  //     favorites.push(movie);
-  //   }
-
-  //   localStorage.setItem("favorites", JSON.stringify(favorites));
-  //   setIsFavorite(!isFavorite);
-  // };
 
   if (loading) {
     return <p className="p-6 text-red-600">Loading...</p>;

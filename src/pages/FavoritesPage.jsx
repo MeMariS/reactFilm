@@ -1,22 +1,9 @@
-// import { useEffect, useState } from "react";
 import EmptyState from "../components/EmptyState.jsx";
 import MovieCard from "../components/MovieCard.jsx";
 import { useFavorites } from "../hooks/useFavorites";
 
 function FavoritesPage() {
-  // const [favorites, setFavorites] = useState([]);
   const { favorites } = useFavorites();
-
-  // useEffect(() => {
-  //   const saved = localStorage.getItem("favorites");
-  //   if (saved) {
-  //     setFavorites(JSON.parse(saved));
-  //   }
-  // }, []);
-
-  // Когда страница загружается первый раз:
-  // Получаем доступ к favorites в LS
-  // Сохраняем их в useState favorites
 
   return (
     <>

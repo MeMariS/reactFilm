@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { FavoritesContext } from "../context/FavoritesContext";
 
 export const useFavorites = () => {
   const [favorites, setFavorites] = useState([]);
@@ -34,9 +33,4 @@ export const useFavorites = () => {
     isFavorite,
     toggleFavorites,
   };
-  // const context = useContext(FavoritesContext);
-  // if (!context) {
-  //   throw new Error("useFavorites must be used inside FavoritesProvider");
-  // }
-  // return context;
 };
